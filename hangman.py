@@ -5,26 +5,19 @@ print("Try to guess the secret word before the hangman picture us complete.\n"
       "If you guess a letter right, you will see the letter printed on the screen in the correct"
       "position/s in the word.\nIf you guess wrong, an element will be added to the picture.\n")
 secret_word = ("sunflower")
-guess_counter = 1
-lives = 9
 finished = False
 previous_guesses = ' '
 placeholder = "_" * len(secret_word)
-rows, cols = (6, 6)
+rows, cols, lives, guess_counter = (6, 6, 9, 1)
 picture = [['.' for i in range(cols)] for j in range(rows)]
 
 while lives > 0 and finished == False:
     guess = input(f'Enter guess {guess_counter}: ').lower()
     guess_counter = guess_counter + 1
-    if len(guess) != 1 or guess.isalpha() == False:
-         print("Input must be a single letter\n")
+    if len(guess) != 1 or guess.isalpha() == False or guess in previous_guesses:
+         print("Guess must be a unique, single letter.\n")
          continue
-    
-    if (guess in previous_guesses):
-         print("Please choose a unique guess\n")
-         continue 
-    
-           
+            
     if guess in secret_word:
         print("This letter is in the word")
         position = secret_word.find(guess)
@@ -32,9 +25,6 @@ while lives > 0 and finished == False:
 
         if ('_' not in placeholder):
                 finished = True
-
-
-
     else:
         print("Wrong guess")
         lives = lives - 1 
@@ -64,7 +54,7 @@ while lives > 0 and finished == False:
              picture[3][cols - 3] = "-"
         elif lives == 1:
              picture[3][cols - 1] = "-"
-        elif lives == 0:
+        else:
              picture[4][cols - 2] = "^"
 
     print(placeholder)
@@ -79,9 +69,6 @@ while lives > 0 and finished == False:
          print("\n")
 
     previous_guesses = previous_guesses + guess
-
-
-
 
 if lives == 0:
     print(f"You lost! The word was {secret_word}.\n")
