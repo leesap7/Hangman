@@ -23,8 +23,11 @@ while lives > 0 and finished == False:
             
     if guess in secret_word:
         print("This letter is in the word")
-        position = secret_word.find(guess)
-        placeholder = placeholder[:position] + guess + placeholder[position + 1:]
+        position = 0
+        while position < len(secret_word):
+             if secret_word[position] == guess:
+                  placeholder = placeholder[:position] + guess + placeholder[position + 1:]
+             position = position + 1
 
         if ('_' not in placeholder):
                 finished = True
