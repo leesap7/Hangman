@@ -28,7 +28,6 @@ while lives > 0 and finished == False:
     else:
         print("Wrong guess")
         lives = lives - 1 
-        print(lives) 
         if lives == 8:
              m = 0
              while m < cols:
