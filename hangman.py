@@ -1,10 +1,12 @@
 #simple hangman game with one secret word
+import random
 
 print("Try to guess the secret word before the hangman picture us complete.\n" 
       "You can guess one letter at a time.\n"
       "If you guess a letter right, you will see the letter printed on the screen in the correct"
       "position/s in the word.\nIf you guess wrong, an element will be added to the picture.\n")
-secret_word = ("sunflower")
+words = ["sunflower", "arabesque", "ocean", "chocolate", "secrets", "magnet", "scarecrow", "castle"]
+secret_word = random.choice(words)
 finished = False
 previous_guesses = ' '
 placeholder = "_" * len(secret_word)
