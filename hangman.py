@@ -7,6 +7,9 @@ lives = 9
 finished = False
 previous_guesses = ' '
 placeholder = "_" * len(secret_word)
+rows, cols = (6, 6)
+picture = [['.' for i in range(cols)] for j in range(rows)]
+
 while lives > 0 and finished == False:
     guess = input(f'Enter guess {guess_counter}: ').lower()
     guess_counter = guess_counter + 1
@@ -31,10 +34,46 @@ while lives > 0 and finished == False:
 
     else:
         print("Wrong guess")
-        lives = lives - 1  
+        lives = lives - 1 
+        print(lives) 
+        if lives == 8:
+             m = 0
+             while m < cols:
+                picture[5][m] = "_"
+                m = m + 1
+        elif lives == 7:
+             n = 0
+             while n < rows:
+                  picture[n][0] = "|"
+                  n = n + 1
+        elif lives == 6:
+             m = 0
+             while m < cols - 1:
+                  picture[0][m] = "_"
+                  m = m + 1
+        elif lives == 5:
+             picture[1][cols - 2] = "|"
+        elif lives == 4:
+             picture[2][cols - 2] = "o"
+        elif lives == 3:
+             picture[3][cols - 2] = "|"
+        elif lives == 2:
+             picture[3][cols - 3] = "-"
+        elif lives == 1:
+             picture[3][cols - 1] = "-"
+        elif lives == 0:
+             picture[4][cols - 2] = "^"
 
     print(placeholder)
     print("\n")
+    i, j = (0, 0)
+    while i < rows:
+         j = 0
+         while j < cols:
+              print(picture[i][j], end=' ')
+              j = j + 1
+         i = i + 1
+         print("\n")
 
     previous_guesses = previous_guesses + guess
 
@@ -44,5 +83,4 @@ while lives > 0 and finished == False:
 if lives == 0:
     print(f"You lost! The word was {secret_word}.\n")
 else :
-    print("You guessed the word on time!\nYay!\n o\n-|-\n ^\n")
-
+    print("You've guessed the word on time!\nYay!\n o\n-|-\n ^\n")
