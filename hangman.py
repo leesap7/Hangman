@@ -5,32 +5,24 @@ secret_word = ("sunflower")
 guess_counter = 1
 lives = 9
 finished = False
-placeholder = ("_ _ _ _ _ _ _ _ _")
-rows, cols = (10, 10)
-picture = [['.'] * cols] * rows
+previous_guesses = ' '
+placeholder = "_" * len(secret_word)
 while lives > 0 and finished == False:
-    guess = input(f'Enter guess {guess_counter}: ')
+    guess = input(f'Enter guess {guess_counter}: ').lower()
     guess_counter = guess_counter + 1
+    if len(guess) != 1 or guess.isalpha() == False:
+         print("Input must be a single letter\n")
+         continue
+    
+    if (guess in previous_guesses):
+         print("Please choose a unique guess\n")
+         continue 
+    
+           
     if guess in secret_word:
         print("This letter is in the word")
-        if guess == 's':
-            placeholder = 's' + placeholder[1:]
-        elif guess == 'u':
-            placeholder = placeholder[:2] + 'u' + placeholder[3:]
-        elif guess == 'n':
-            placeholder = placeholder[:4] + 'n' + placeholder[5:]
-        elif guess == 'f':
-            placeholder = placeholder[:6] + 'f' + placeholder[7:]
-        elif guess == 'l':
-            placeholder = placeholder[:8] + 'l' + placeholder[9:]
-        elif guess == 'o':
-            placeholder = placeholder[:10] + 'o' + placeholder[11:]
-        elif guess == 'w':
-            placeholder = placeholder[:12] + 'w' + placeholder[13:]
-        elif guess == 'e':
-            placeholder = placeholder[:14] + 'e' + placeholder[15:]
-        elif guess == 'r':
-            placeholder = placeholder[:16] + 'r'
+        position = secret_word.find(guess)
+        placeholder = placeholder[:position] + guess + placeholder[position + 1:]
 
         if ('_' not in placeholder):
                 finished = True
@@ -39,21 +31,12 @@ while lives > 0 and finished == False:
 
     else:
         print("Wrong guess")
-        lives = lives - 1
-        print(lives)     
+        lives = lives - 1  
 
     print(placeholder)
     print("\n")
-    i, j = (0, 0)
-    while i < rows:
-        j = 0
-        while j < cols:
-            print(picture[i][j], end=' ')
-            j = j + 1
-        i = i + 1 
-        print("\n")   
-    
-    print("\n")
+
+    previous_guesses = previous_guesses + guess
 
 
 
